@@ -12,7 +12,9 @@ jupiter.save = function(data)
 		for k, v in pairs(table) do
 			if k ~= "_fileName" then
 				if type(v) == "table" then
-					serial(v, scope .. tostring(k) .. ".")
+					if not scope:find('__index') then
+						serial(v, scope .. tostring(k) .. ".")
+					end
 				else
 					x = file:write(scope .. k .. "=" .. tostring(v) .. "\n") --write value
 					if not x then return nil end
